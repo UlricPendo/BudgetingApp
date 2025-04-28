@@ -11,25 +11,24 @@ from flet import (
 )
 
 # Import only needed classes and functions
-from IncomeInput.Incomeinput import IncomeInput
-from FixedExpenses.fixed_expenses import fExpensesInput
+from Pages.income import IncomeInput
 
 
-ROUTES = ["/Budget", "/Graphs", "/History"]
+ROUTES = ["/Income", "/Fixed Expenses", "/Trends"]
 
 
 def handle_route_change(event: RouteChangeEvent) -> None:
     event.page.controls.clear()
-    if event.route == "/Budget":
+    if event.route == "/Income":
         event.page.add(
             Row(
-                controls=[IncomeInput(), fExpensesInput()],
+                controls=[IncomeInput()],
             )
         )
-    elif event.route == "/Graphs":
-        event.page.add(Text("Graphs"))
+    elif event.route == "/Fixed Expenses":
+        event.page.add(Text("Fixed Expenses"))
     else:
-        event.page.add(Text("History"))
+        event.page.add(Text("Trends"))
 
 
 def change_route(event: ControlEvent) -> None:
@@ -37,20 +36,20 @@ def change_route(event: ControlEvent) -> None:
 
 
 def main(page: Page):
-    page.title = "Budget Tracker"
+    page.title = "Income Tracker"
     page.vertical_alignment = "start"
     page.padding = 20
     page.on_route_change = handle_route_change
     page.navigation_bar = NavigationBar(
         destinations=[
-            NavigationBarDestination(icon=Icons.BOOK, label="Budget"),
-            NavigationBarDestination(icon=Icons.AUTO_GRAPH, label="Graphs"),
-            NavigationBarDestination(icon=Icons.HISTORY, label="History"),
+            NavigationBarDestination(icon=Icons.BOOK, label="Income"),
+            NavigationBarDestination(icon=Icons.AUTO_GRAPH, label="Fixed Expenses"),
+            NavigationBarDestination(icon=Icons.HISTORY, label="Trends"),
         ],
         on_change=change_route,
     )
 
-    page.go(route="/Budget")
+    page.go(route="/Income")
 
 
 app(target=main)

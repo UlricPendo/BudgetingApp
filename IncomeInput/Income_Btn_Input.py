@@ -20,7 +20,7 @@ class AddIncome(ElevatedButton):
             self.income_column.controls.append(new_income)
             self.total_income.value = f"Total Income: ${sum(self.incomes):.2f}"
             self.income_input.value = ""
-            self.income_input.error_text = None        
+            self.income_input.error_text = None
         except ValueError:
             self.income_input.error_text = "Please enter a valid number!"
         self.page.update()
