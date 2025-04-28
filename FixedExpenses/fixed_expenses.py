@@ -1,12 +1,10 @@
 from flet import (
     Column,
     TextField,
-    ElevatedButton,
     Row,
     Text,
     MainAxisAlignment,
     NumbersOnlyInputFilter,
-    InputFilter,
 )
 from IncomeInput.Income_Btn_Input import AddIncome
 

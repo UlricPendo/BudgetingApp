@@ -6,8 +6,6 @@ from flet import (
     Text,
     MainAxisAlignment,
     NumbersOnlyInputFilter,
-    InputFilter,
-    Colors,
 )
 
 # from IncomeInput.Income_Btn_Input import AddIncome  # , RemoveIncome

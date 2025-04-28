@@ -1,12 +1,6 @@
 from flet import (
     Column,
-    TextField,
-    ElevatedButton,
-    Row,
     Text,
-    MainAxisAlignment,
-    NumbersOnlyInputFilter,
-    InputFilter,
 )
 
 # attempted to seperate everything into its own files to keep it more orginized but i am struggling.
