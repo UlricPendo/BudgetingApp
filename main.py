@@ -8,28 +8,33 @@ from flet import (
     RouteChangeEvent,
     ControlEvent,
     Text,
+    View,
+    Theme,
+    PageTransitionTheme,
+    PageTransitionsTheme,
 )
 
-# Import only needed classes and functions
-from IncomeInput.Incomeinput import IncomeInput
-from FixedExpenses.fixed_expenses import fExpensesInput
+
+from pages.budget import BudgetPage
 
 
 ROUTES = ["/Budget", "/Graphs", "/History"]
 
 
 def handle_route_change(event: RouteChangeEvent) -> None:
-    event.page.controls.clear()
+    event.page.views.pop()
     if event.route == "/Budget":
-        event.page.add(
-            Row(
-                controls=[IncomeInput(), fExpensesInput()],
-            )
-        )
+        event.page.views.append(BudgetPage(navigation_bar=event.page.navigation_bar))
     elif event.route == "/Graphs":
-        event.page.add(Text("Graphs"))
+        event.page.views.append(
+            View(controls=[Text("Graphs")], navigation_bar=event.page.navigation_bar)
+        )
     else:
-        event.page.add(Text("History"))
+        event.page.views.append(
+            View(controls=[Text("History")], navigation_bar=event.page.navigation_bar)
+        )
+
+    event.page.update()
 
 
 def change_route(event: ControlEvent) -> None:
@@ -40,6 +45,9 @@ def main(page: Page):
     page.title = "Budget Tracker"
     page.vertical_alignment = "start"
     page.padding = 20
+    page.theme = Theme(
+        page_transitions=PageTransitionsTheme(windows=PageTransitionTheme.NONE)
+    )
     page.on_route_change = handle_route_change
     page.navigation_bar = NavigationBar(
         destinations=[

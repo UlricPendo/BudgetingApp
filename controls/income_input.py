@@ -4,18 +4,17 @@ from flet import (
     ElevatedButton,
     Row,
     Text,
-    MainAxisAlignment,
     NumbersOnlyInputFilter,
+    ControlEvent,
 )
-
-# from IncomeInput.Income_Btn_Input import AddIncome  # , RemoveIncome
+from controls.date_picker_button import DatePickerButton
 
 
 class IncomeInput(Column):
     def __init__(self):
         super().__init__()
-        self.expand = True
-        self.width = 300
+        self.expand = 1
+        # self.width = 300
         self.income_input = TextField(
             label="Enter after-tax Income(Numbers only)",
             width=300,
@@ -35,7 +34,6 @@ class IncomeInput(Column):
             self.income_input,
             Row(
                 controls=[self.add_income_btn, self.remove_income_btn],
-                alignment=MainAxisAlignment.START,
             ),
             Text("Income Added:"),
             self.income_column,
@@ -45,24 +43,24 @@ class IncomeInput(Column):
         self.incomes = []
 
     # chatgpt helped with this
-    def add_income(self, e):
-        # not sure what try is
-        try:
-            # gives the variable value the properties of a float, and passes the income_input value to it
+    def add_income(self, event: ControlEvent) -> None:
+        # gives the variable value the properties of a float, and passes the income_input value to it
+        if self.income_input.value:
             value = float(self.income_input.value)
             # passes value into incomes array
             self.incomes.append(value)
             # passes the value into a text to be displayed
             new_income = Text(f"Income: ${self.income_input.value}")
             # creates a new column with the properties of new_income
-            self.income_column.controls.append(new_income)
+            self.income_column.controls.append(
+                Row(controls=[new_income, DatePickerButton(text="Select date")])
+            )
             # adds the values inside the incomes array, and passes to total_income to be displayed
             self.total_income.value = f"Total Income: ${sum(self.incomes):.2f}"
             # removes the text inside of the textfield to be blank
             self.income_input.value = ""
             self.income_input.error_text = None  # Clear error if successful
-        except ValueError:
-            # error handling, if no value is entered or if they try to enter something weird that isnt handled by the input filter
+        else:
             self.income_input.error_text = "Please enter a valid number!"
 
         self.update()
