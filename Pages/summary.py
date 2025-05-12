@@ -11,6 +11,7 @@ from flet import (
     TextAlign,
     CrossAxisAlignment,
 )
+import pandas as pd
 
 
 class BudgetSummary(Container):
@@ -22,8 +23,14 @@ class BudgetSummary(Container):
         self.border_radius = 15
         self.padding = 20
         self.margin = 5
+
+        df = pd.read_csv("./income.csv")
+        income_str = "$0"
+        if len(df):
+            income_str = f"${df["Amount"].sum():.2f}"
+
         self.total_income = Text(
-            "$0",
+            income_str,
             color="green",
             weight=FontWeight.BOLD,
             text_align=TextAlign.RIGHT,

@@ -13,7 +13,10 @@ from flet import (
     ResponsiveRow,
     TextOnlyInputFilter,
     OnFocusEvent,
+    ControlEvent,
 )
+from Pages.edit import EditView
+import pandas as pd
 
 
 class IncomeInput(Column):
@@ -107,6 +110,22 @@ class IncomeInput(Column):
         # array to store entered incomes.
         self.incomes = []
 
+        df = pd.read_csv("./income.csv")
+        for _, row in df.iterrows():
+            new_income = Text(
+                f"{row["Description"]} | ${row["Amount"]} | {row["Date"]} ",
+                color="black",
+            )
+            # creates a new column with the properties of new_income
+            self.income_column.controls.append(
+                Row(
+                    controls=[
+                        new_income,
+                        ElevatedButton(text="Edit", on_click=self.open_edit),
+                    ]
+                )
+            )
+
     # chatgpt helped with this
     def add_income(self, e):
         # not sure what try is
@@ -121,7 +140,14 @@ class IncomeInput(Column):
                 color="black",
             )
             # creates a new column with the properties of new_income
-            self.income_column.controls.append(new_income)
+            self.income_column.controls.append(
+                Row(
+                    controls=[
+                        new_income,
+                        ElevatedButton(text="Edit", on_click=self.open_edit),
+                    ]
+                )
+            )
             # adds the values inside the incomes array, and passes to total_income to be displayed
             # self.total_income.value = f"Total Income: ${sum(self.incomes):.2f}"
 
@@ -129,6 +155,18 @@ class IncomeInput(Column):
             self.page.controls[0].controls[
                 0
             ].total_income.value = f"${sum(self.incomes):.2f}"
+
+            df = pd.read_csv("./income.csv")
+
+            new_row_data = {
+                "Description": self.incomeTypeinput.value,
+                "Amount": self.income_input.value,
+                "Date": self.incomeDateinput.value,
+            }
+
+            # Add the new row using .loc[] and the next available index
+            df.loc[len(df)] = new_row_data
+            df.to_csv("./income.csv", index=False)
 
             # removes the text inside of the textfield to be blank
             self.income_input.value = ""
@@ -141,6 +179,10 @@ class IncomeInput(Column):
 
         self.update()
         # need to update the whole page to see it.
+        self.page.update()
+
+    def open_edit(self, event: ControlEvent) -> None:
+        self.page.views.append(EditView(ctrl=event.control.parent.controls[0]))
         self.page.update()
 
     # chatgpt helped with this
@@ -159,3 +201,5 @@ class IncomeInput(Column):
             # error handling, if they try to remove income with no income added.
             self.income_input.error_text = "No income to remove!"
         self.update()
+
+
