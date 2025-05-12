@@ -6,14 +6,13 @@ from flet import (
     FontWeight,
     Divider,
     Row,
-    MainAxisAlignment,
-    alignment,
-    TextAlign,
     CrossAxisAlignment,
+    MainAxisAlignment,
+    TextAlign,
 )
 
 
-class BudgetSummary(Container):
+class SavingsSummary(Container):
     def __init__(self):
         super().__init__()
         self.expand = True
@@ -30,12 +29,12 @@ class BudgetSummary(Container):
                         Column(
                             controls=[
                                 Text(
-                                    "Budget Summary",
+                                    "Savings",
                                     color="black",
                                     size=30,
                                     weight=FontWeight.BOLD,
                                 ),
-                                Text("Overview of your monthly budget"),
+                                Text("Your Savings breakdown"),
                             ]
                         )
                     ]
@@ -47,17 +46,22 @@ class BudgetSummary(Container):
                             expand=True,
                             controls=[
                                 Text(
-                                    "Total Income",
+                                    "Savings Rate",
                                     color="black",
                                     weight=FontWeight.BOLD,
                                 ),
                                 Text(
-                                    "Fixed Expenses",
+                                    "Monthyl Savings",
                                     color="black",
                                     weight=FontWeight.BOLD,
                                 ),
                                 Text(
-                                    "Variable Expenses",
+                                    "Total Expanses",
+                                    color="black",
+                                    weight=FontWeight.BOLD,
+                                ),
+                                Text(
+                                    "Expanse Ratio",
                                     color="black",
                                     weight=FontWeight.BOLD,
                                 ),
@@ -68,52 +72,28 @@ class BudgetSummary(Container):
                             horizontal_alignment=CrossAxisAlignment.END,
                             controls=[
                                 Text(
+                                    "%%",
+                                    color="black",
+                                    weight=FontWeight.BOLD,
+                                ),
+                                Text(
                                     "$$$",
                                     color="green",
                                     weight=FontWeight.BOLD,
-                                    text_align=TextAlign.RIGHT,
                                 ),
                                 Text(
-                                    "-$$$$",
-                                    color="Red",
+                                    "$$$",
+                                    color="black",
                                     weight=FontWeight.BOLD,
-                                    text_align=TextAlign.RIGHT,
                                 ),
                                 Text(
-                                    "-$$$$$",
-                                    color="Red",
-                                    weight=FontWeight.BOLD,
-                                    text_align=TextAlign.RIGHT,
-                                ),
-                            ],
-                        ),
-                    ],
-                ),
-                Divider(),
-                Row(
-                    controls=[
-                        Column(
-                            expand=True,
-                            controls=[
-                                Text(
-                                    "Money Left Over",
+                                    "%%",
                                     color="black",
                                     weight=FontWeight.BOLD,
                                 ),
                             ],
                         ),
-                        Column(
-                            horizontal_alignment=CrossAxisAlignment.END,
-                            controls=[
-                                Text(
-                                    "$$$",
-                                    color="green",
-                                    weight=FontWeight.BOLD,
-                                    text_align=TextAlign.RIGHT,
-                                ),
-                            ],
-                        ),
-                    ]
+                    ],
                 ),
             ],
         )

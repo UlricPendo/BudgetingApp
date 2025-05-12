@@ -81,7 +81,7 @@ class IncomeInput(Column):
             bgcolor="white",
             expand=True,
             border_radius=15,
-            padding=10,
+            padding=15,
             margin=10,
             # content=Text("Income Input"),
             content=Column(
@@ -90,7 +90,10 @@ class IncomeInput(Column):
                     ilabel,
                     isubheader,
                     inputs,
-                    Row(controls=[addincome, removeincome]),
+                    Row(
+                        alignment=MainAxisAlignment.END,
+                        controls=[addincome, removeincome],
+                    ),
                     Text("Income Added:", color="black", weight="bold"),
                     addedIncome,
                     tincome,

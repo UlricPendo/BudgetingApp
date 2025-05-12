@@ -15,7 +15,6 @@ class IncomeInput(Column):
     def __init__(self):
         super().__init__()
         self.expand = True
-        self.width = 300
         self.income_input = TextField(
             label="Enter after-tax Income(Numbers only)",
             width=300,
