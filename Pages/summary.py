@@ -22,6 +22,12 @@ class BudgetSummary(Container):
         self.border_radius = 15
         self.padding = 20
         self.margin = 5
+        self.total_income = Text(
+            "$0",
+            color="green",
+            weight=FontWeight.BOLD,
+            text_align=TextAlign.RIGHT,
+        )
         self.content = Column(
             controls=[
                 # Header
@@ -40,80 +46,66 @@ class BudgetSummary(Container):
                         )
                     ]
                 ),
-                # data in
                 Row(
                     controls=[
-                        Column(
-                            expand=True,
-                            controls=[
-                                Text(
-                                    "Total Income",
-                                    color="black",
-                                    weight=FontWeight.BOLD,
-                                ),
-                                Text(
-                                    "Fixed Expenses",
-                                    color="black",
-                                    weight=FontWeight.BOLD,
-                                ),
-                                Text(
-                                    "Variable Expenses",
-                                    color="black",
-                                    weight=FontWeight.BOLD,
-                                ),
-                            ],
+                        Text(
+                            "Total Income",
+                            color="black",
+                            weight=FontWeight.BOLD,
                         ),
-                        # Math part
-                        Column(
-                            horizontal_alignment=CrossAxisAlignment.END,
-                            controls=[
-                                Text(
-                                    "$$$",
-                                    color="green",
-                                    weight=FontWeight.BOLD,
-                                    text_align=TextAlign.RIGHT,
-                                ),
-                                Text(
-                                    "-$$$$",
-                                    color="Red",
-                                    weight=FontWeight.BOLD,
-                                    text_align=TextAlign.RIGHT,
-                                ),
-                                Text(
-                                    "-$$$$$",
-                                    color="Red",
-                                    weight=FontWeight.BOLD,
-                                    text_align=TextAlign.RIGHT,
-                                ),
-                            ],
+                        self.total_income,
+                    ],
+                    alignment=MainAxisAlignment.SPACE_BETWEEN,
+                ),
+                Row(
+                    controls=[
+                        Text(
+                            "Fixed Expenses",
+                            color="black",
+                            weight=FontWeight.BOLD,
+                        ),
+                        Text(
+                            "-$$$",
+                            color="red",
+                            weight=FontWeight.BOLD,
+                            text_align=TextAlign.RIGHT,
                         ),
                     ],
+                    alignment=MainAxisAlignment.SPACE_BETWEEN,
                 ),
+                Row(
+                    controls=[
+                        Text(
+                            "Variable Expenses",
+                            color="black",
+                            weight=FontWeight.BOLD,
+                        ),
+                        Text(
+                            "-$$$",
+                            color="red",
+                            weight=FontWeight.BOLD,
+                            text_align=TextAlign.RIGHT,
+                        ),
+                    ],
+                    alignment=MainAxisAlignment.SPACE_BETWEEN,
+                ),
+                # data in
                 Divider(),
                 Row(
                     controls=[
-                        Column(
-                            expand=True,
-                            controls=[
-                                Text(
-                                    "Money Left Over",
-                                    color="black",
-                                    weight=FontWeight.BOLD,
-                                ),
-                            ],
+                        Text(
+                            "Total Income",
+                            color="black",
+                            weight=FontWeight.BOLD,
                         ),
-                        Column(
-                            horizontal_alignment=CrossAxisAlignment.END,
-                            controls=[
-                                Text(
-                                    "$$$",
-                                    color="green",
-                                    weight=FontWeight.BOLD,
-                                    text_align=TextAlign.RIGHT,
-                                ),
-                            ],
+                        Text(
+                            "$$$",
+                            color="green",
+                            weight=FontWeight.BOLD,
+                            text_align=TextAlign.RIGHT,
                         ),
-                    ]
+                    ],
+                    alignment=MainAxisAlignment.SPACE_BETWEEN,
                 ),
             ],
         )

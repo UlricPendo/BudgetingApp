@@ -96,7 +96,6 @@ class IncomeInput(Column):
                     ),
                     Text("Income Added:", color="black", weight="bold"),
                     addedIncome,
-                    tincome,
                 ],
             ),
         )
@@ -124,7 +123,13 @@ class IncomeInput(Column):
             # creates a new column with the properties of new_income
             self.income_column.controls.append(new_income)
             # adds the values inside the incomes array, and passes to total_income to be displayed
-            self.total_income.value = f"Total Income: ${sum(self.incomes):.2f}"
+            # self.total_income.value = f"Total Income: ${sum(self.incomes):.2f}"
+
+            # This is whats pulling the correct information
+            self.page.controls[0].controls[
+                0
+            ].total_income.value = f"${sum(self.incomes):.2f}"
+
             # removes the text inside of the textfield to be blank
             self.income_input.value = ""
             self.incomeDateinput.value = ""
@@ -135,6 +140,8 @@ class IncomeInput(Column):
             self.income_input.error_text = "Please enter a valid number!"
 
         self.update()
+        # need to update the whole page to see it.
+        self.page.update()
 
     # chatgpt helped with this
     def remove_income(self, e):

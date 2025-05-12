@@ -40,7 +40,7 @@ class PageSwitch(Column):
         Pageselect = self.Page_selector = CupertinoSlidingSegmentedButton(
             expand=True,
             selected_index=0,
-            thumb_color=Colors.WHITE24,
+            thumb_color=Colors.BLACK,
             on_change=page_change,
             controls=[
                 Text("Income"),
